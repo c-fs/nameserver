@@ -8,7 +8,7 @@ service name {
 }
 
 message RegisterDisksRequest {
-    map<string, DiskInfo> disks = 1;
+    repeated DiskInfo disks = 1;
 }
 
 message RegisterDisksReply {}
@@ -16,7 +16,7 @@ message RegisterDisksReply {}
 message FetchDisksRequest {}
 
 message FetchDisksReply {
-    map<string, DiskInfo> disks = 1;
+    repeated DiskInfo disks = 1;
 }
 
 message DiskInfo {
