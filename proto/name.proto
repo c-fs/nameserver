@@ -3,15 +3,8 @@ syntax = "proto3";
 package proto;
 
 service name {
-    rpc RegisterDisks(RegisterDisksRequest) returns (RegisterDisksReply);
     rpc FetchDisks(FetchDisksRequest) returns (FetchDisksReply);
 }
-
-message RegisterDisksRequest {
-    repeated DiskInfo disks = 1;
-}
-
-message RegisterDisksReply {}
 
 message FetchDisksRequest {}
 

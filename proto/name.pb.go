@@ -9,8 +9,6 @@ It is generated from these files:
 	name.proto
 
 It has these top-level messages:
-	RegisterDisksRequest
-	RegisterDisksReply
 	FetchDisksRequest
 	FetchDisksReply
 	DiskInfo
@@ -26,28 +24,6 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto1.Marshal
-
-type RegisterDisksRequest struct {
-	Disks []*DiskInfo `protobuf:"bytes,1,rep,name=disks" json:"disks,omitempty"`
-}
-
-func (m *RegisterDisksRequest) Reset()         { *m = RegisterDisksRequest{} }
-func (m *RegisterDisksRequest) String() string { return proto1.CompactTextString(m) }
-func (*RegisterDisksRequest) ProtoMessage()    {}
-
-func (m *RegisterDisksRequest) GetDisks() []*DiskInfo {
-	if m != nil {
-		return m.Disks
-	}
-	return nil
-}
-
-type RegisterDisksReply struct {
-}
-
-func (m *RegisterDisksReply) Reset()         { *m = RegisterDisksReply{} }
-func (m *RegisterDisksReply) String() string { return proto1.CompactTextString(m) }
-func (*RegisterDisksReply) ProtoMessage()    {}
 
 type FetchDisksRequest struct {
 }
@@ -87,7 +63,6 @@ var _ grpc.ClientConn
 // Client API for Name service
 
 type NameClient interface {
-	RegisterDisks(ctx context.Context, in *RegisterDisksRequest, opts ...grpc.CallOption) (*RegisterDisksReply, error)
 	FetchDisks(ctx context.Context, in *FetchDisksRequest, opts ...grpc.CallOption) (*FetchDisksReply, error)
 }
 
@@ -97,15 +72,6 @@ type nameClient struct {
 
 func NewNameClient(cc *grpc.ClientConn) NameClient {
 	return &nameClient{cc}
-}
-
-func (c *nameClient) RegisterDisks(ctx context.Context, in *RegisterDisksRequest, opts ...grpc.CallOption) (*RegisterDisksReply, error) {
-	out := new(RegisterDisksReply)
-	err := grpc.Invoke(ctx, "/proto.name/RegisterDisks", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *nameClient) FetchDisks(ctx context.Context, in *FetchDisksRequest, opts ...grpc.CallOption) (*FetchDisksReply, error) {
@@ -120,24 +86,11 @@ func (c *nameClient) FetchDisks(ctx context.Context, in *FetchDisksRequest, opts
 // Server API for Name service
 
 type NameServer interface {
-	RegisterDisks(context.Context, *RegisterDisksRequest) (*RegisterDisksReply, error)
 	FetchDisks(context.Context, *FetchDisksRequest) (*FetchDisksReply, error)
 }
 
 func RegisterNameServer(s *grpc.Server, srv NameServer) {
 	s.RegisterService(&_Name_serviceDesc, srv)
-}
-
-func _Name_RegisterDisks_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
-	in := new(RegisterDisksRequest)
-	if err := codec.Unmarshal(buf, in); err != nil {
-		return nil, err
-	}
-	out, err := srv.(NameServer).RegisterDisks(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func _Name_FetchDisks_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
@@ -156,10 +109,6 @@ var _Name_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.name",
 	HandlerType: (*NameServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "RegisterDisks",
-			Handler:    _Name_RegisterDisks_Handler,
-		},
 		{
 			MethodName: "FetchDisks",
 			Handler:    _Name_FetchDisks_Handler,
