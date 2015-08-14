@@ -15,4 +15,5 @@ message FetchDisksReply {
 message DiskInfo {
     string name = 1;
     string remote = 2;
+    int32 port = 3;
 }

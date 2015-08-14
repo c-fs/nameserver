@@ -50,6 +50,7 @@ func (m *FetchDisksReply) GetDisks() []*DiskInfo {
 type DiskInfo struct {
 	Name   string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 	Remote string `protobuf:"bytes,2,opt,name=remote" json:"remote,omitempty"`
+	Port   int32  `protobuf:"varint,3,opt,name=port" json:"port,omitempty"`
 }
 
 func (m *DiskInfo) Reset()         { *m = DiskInfo{} }
