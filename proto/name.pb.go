@@ -28,14 +28,14 @@ import (
 var _ = proto1.Marshal
 
 type RegisterDisksRequest struct {
-	Disks map[string]*DiskInfo `protobuf:"bytes,1,rep,name=disks" json:"disks,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Disks []*DiskInfo `protobuf:"bytes,1,rep,name=disks" json:"disks,omitempty"`
 }
 
 func (m *RegisterDisksRequest) Reset()         { *m = RegisterDisksRequest{} }
 func (m *RegisterDisksRequest) String() string { return proto1.CompactTextString(m) }
 func (*RegisterDisksRequest) ProtoMessage()    {}
 
-func (m *RegisterDisksRequest) GetDisks() map[string]*DiskInfo {
+func (m *RegisterDisksRequest) GetDisks() []*DiskInfo {
 	if m != nil {
 		return m.Disks
 	}
@@ -57,14 +57,14 @@ func (m *FetchDisksRequest) String() string { return proto1.CompactTextString(m)
 func (*FetchDisksRequest) ProtoMessage()    {}
 
 type FetchDisksReply struct {
-	Disks map[string]*DiskInfo `protobuf:"bytes,1,rep,name=disks" json:"disks,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Disks []*DiskInfo `protobuf:"bytes,1,rep,name=disks" json:"disks,omitempty"`
 }
 
 func (m *FetchDisksReply) Reset()         { *m = FetchDisksReply{} }
 func (m *FetchDisksReply) String() string { return proto1.CompactTextString(m) }
 func (*FetchDisksReply) ProtoMessage()    {}
 
-func (m *FetchDisksReply) GetDisks() map[string]*DiskInfo {
+func (m *FetchDisksReply) GetDisks() []*DiskInfo {
 	if m != nil {
 		return m.Disks
 	}
