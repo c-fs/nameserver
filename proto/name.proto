@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+
+service name {
+    rpc RegisterDisks(RegisterDisksRequest) returns (RegisterDisksReply);
+    rpc FetchDisks(FetchDisksRequest) returns (FetchDisksReply);
+}
+
+message RegisterDisksRequest {
+    map<string, DiskInfo> disks = 1;
+}
+
+message RegisterDisksReply {}
+
+message FetchDisksRequest {}
+
+message FetchDisksReply {
+    map<string, DiskInfo> disks = 1;
+}
+
+message DiskInfo {
+    string name = 1;
+    string remote = 2;
+}
