@@ -20,16 +20,11 @@ func New(address string) (*Client, error) {
 	return &Client{grpcConn: conn, nameClient: pb.NewNameClient(conn)}, nil
 }
 
-func (c *Client) FetchDisks(ctx context.Context) (map[string]string, error) {
+func (c *Client) FetchDisks(ctx context.Context) ([]*pb.DiskInfo, error) {
 	reply, err := c.nameClient.FetchDisks(ctx, &pb.FetchDisksRequest{})
 
 	if err != nil {
 		return nil, err
 	}
-
-	diskMap := make(map[string]string)
-	for _, disk := range reply.Disks {
-		diskMap[disk.Name] = disk.Remote
-	}
-	return diskMap, nil
+	return reply.Disks, nil
 }
