@@ -35,8 +35,9 @@ func main() {
 		log.Fatalf("server: configuration file[%s] is not valid (%v)", configfn, err)
 	}
 	server := NewServer()
-	for _, v := range conf.Disks {
-		server.registeredDisks = append(server.registeredDisks, &v)
+	for i, v := range conf.Disks {
+		log.Infof("Adding %v to disks", v)
+		server.registeredDisks = append(server.registeredDisks, &conf.Disks[i])
 	}
 	log.Infof("server: starting server...")
 
