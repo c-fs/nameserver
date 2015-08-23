@@ -1,23 +1,22 @@
 package main
 
 import (
-	"io/ioutil"
-	"net"
 	"github.com/BurntSushi/toml"
 	pb "github.com/c-fs/nameserver/proto"
+	"github.com/c-fs/nameserver/server/config"
 	"github.com/qiniu/log"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"github.com/c-fs/nameserver/server/config"
+	"io/ioutil"
+	"net"
 )
-
 
 type server struct {
 	registeredDisks []*pb.DiskInfo
 }
 
 func NewServer() *server {
-	return &server{registeredDisks: make([]*pb.DiskInfo, 26)}
+	return &server{registeredDisks: make([]*pb.DiskInfo, 0, 26)}
 }
 
 func (s *server) FetchDisks(context.Context, *pb.FetchDisksRequest) (*pb.FetchDisksReply, error) {
